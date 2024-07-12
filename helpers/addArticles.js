@@ -1,6 +1,6 @@
 
 const { addCaseFile } = require("../queries/caseFiles");
-// const translateText = require("../helpers/translateText")
+const translateText = require("../helpers/translateText")
 
 const URL = process.env.BASE_URL;
 const key = process.env.NEWS_API_KEY;
@@ -46,13 +46,25 @@ async function addArticles(allCountries){
 
         for (let newFile of threeArticles) {
             //   console.log("New file", newFile);
-            // const textInSpanish = await translateText("Hello World", "es")
         //  *** if language_code !== en, then run translate helper function ***
+          let translatedContent = newFile.text;
+          let translatedTitle = newFile.title;
+
+          // Translate content and title if the language is not English
+          if (country.language_code !== 'en') {
+          // if (country.language_code === 'en') {
+          translatedContent = await translateText(newFile.text, 'en');
+          translatedTitle = await translateText(newFile.title, 'en');
+        }
+
+          
           const addedCaseFile = await addCaseFile({
             countries_id: country.id,
             article_id: newFile.id,
-            article_content: newFile.text,
-            article_title: newFile.title,
+            // article_content: newFile.text,
+            // article_title: newFile.title,
+            article_content: translatedContent,
+            article_title: translatedTitle,
             publish_date: newFile.publish_date,
             photo_url: newFile.image,
           });
