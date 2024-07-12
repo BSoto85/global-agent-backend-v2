@@ -4,13 +4,14 @@ const case_files = express.Router();
 const { getAllCountries } = require("../queries/countries");
 const {
   getCaseFilesByCountry,
-  // getLatestCaseFile,
-  getAllNewCaseFiles
+  getLatestCaseFile,
+  getAllNewCaseFiles,
 } = require("../queries/caseFiles");
 const deleteOldCaseFiles = require("../helpers/deleteOldCaseFiles");
 const addArticles = require("../helpers/addArticles");
+const { getSummaries } = require("../helpers/aiGetSummary");
+const { addSummaries } = require("../helpers/addSummaries");
 const translateText = require("../helpers/translateText");
-
 
 // http://localhost:3003/api/case_files/news-from-australia
 case_files.get("/news-from-australia", async (req, res) => {
@@ -24,16 +25,20 @@ case_files.get("/news-from-australia", async (req, res) => {
         // res.status(500).json({ error: "Error fetching countries" });
         throw new Error(" Error fetching countries");
       }
-      await addArticles(allCountries)
+      const addedArticles = await addArticles(allCountries)
       // res.status(200).json({ message: "Success adding articles!" })
       console.log("Success adding articles!")
+      if (addedArticles.length > 0) {
+        const result = await addSummaries(addedArticles);
+        // console.log("Result", result);
+      }
     } else {
       // res.status(200).json({ message: "Articles are up to date" })
       throw new Error("Articles are up to date");
     }
     res.status(200).json({ message: "Translate success"})
   } catch (error) {
-    console.error("Error fetching news:", error);
+    // console.error("Error fetching news:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
