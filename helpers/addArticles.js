@@ -51,10 +51,12 @@ async function addArticles(allCountries){
           let translatedTitle = newFile.title;
 
           // Translate content and title if the language is not English
-          if (country.language_code !== 'en') {
-          // if (country.language_code === 'en') {
-          translatedContent = await translateText(newFile.text, 'en');
-          translatedTitle = await translateText(newFile.title, 'en');
+          // if (country.language_code !== 'en') {
+          if (country.language_code === 'en') {
+          // translatedContent = await translateText(newFile.text, 'en');
+          // translatedTitle = await translateText(newFile.title, 'en');
+          translatedContent = await translateText(newFile.text, 'es');
+          translatedTitle = await translateText(newFile.title, 'es');
         }
 
           
