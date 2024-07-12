@@ -21,63 +21,55 @@ function getFormattedDate() {
 
 const currentDate = getFormattedDate();
 
-async function addArticles(allCountries) {
-  const addedArticles = [];
+async function addArticles(allCountries){
+  let addedArticles = []
 
-  return allCountries.map(async (country) => {
+  for(let country of allCountries){
     const url = `${URL}?source-country=${country.country_code}&language=${country.language_code}&date=${currentDate}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "x-api-key": key,
       },
-    });
+    }); 
+
     console.log("Response", response);
     if (!response.ok) {
       //   console.error(response.status);
       // throw new Error("Failed to fetch news");
     }
-
     const data = await response.json();
     console.log("Data", data);
     const threeArticles = data.top_news[0].news.slice(0, 3);
-        for (let newFile of threeArticles) {
-            //   console.log("New file", newFile);
-        //  *** if language_code !== en, then run translate helper function ***
-          let translatedContent = newFile.text;
-          let translatedTitle = newFile.title;
 
-          // Translate content and title if the language is not English
-          // if (country.language_code !== 'en') {
-          if (country.language_code === 'en') {
-          // translatedContent = await translateText(newFile.text, 'en');
-          // translatedTitle = await translateText(newFile.title, 'en');
-          translatedContent = await translateText(newFile.text, 'es');
-          translatedTitle = await translateText(newFile.title, 'es');
-        }
+    for (let newFile of threeArticles) {
+      //   console.log("New file", newFile); 
+      //  *** if language_code !== en, then run translate helper function ***
+      let translatedContent = newFile.text;
+      let translatedTitle = newFile.title;
+      // Translate content and title if the language is not English
+      // if (country.language_code !== 'en') {
+      if (country.language_code === 'en') {
+        // translatedContent = await translateText(newFile.text, 'en');
+        // translatedTitle = await translateText(newFile.title, 'en');
+        translatedContent = await translateText(newFile.text, 'es');
+        translatedTitle = await translateText(newFile.title, 'es');
+      }
 
-          
-          const addedCaseFile = await addCaseFile({
-            countries_id: country.id,
-            article_id: newFile.id,
-            // article_content: newFile.text,
-            // article_title: newFile.title,
-            article_content: translatedContent,
-            article_title: translatedTitle,
-            publish_date: newFile.publish_date,
-            photo_url: newFile.image,
-          });
-          console.log("Added file", addedCaseFile);
-          addedArticles.push(addedCaseFile)
-        }
-      });
+    const addedCaseFile = await addCaseFile({
+      countries_id: country.id,
+      article_id: newFile.id,
+      // article_content: newFile.text,
+      // article_title: newFile.title,
+      article_content: translatedContent,
+      article_title: translatedTitle,
+      publish_date: newFile.publish_date,
+      photo_url: newFile.image,
+    });
       console.log("Added file", addedCaseFile);
-      // setTimeout(addCaseFile, 5000);
       addedArticles.push(addedCaseFile.article_content);
     }
-    console.log("**********", addedArticles);
-    return addedArticles;
-  });
+  }
+  return addedArticles
 }
-
 module.exports = addArticles;
