@@ -17,26 +17,26 @@ const translateText = require("../helpers/translateText");
 case_files.get("/news-from-australia", async (req, res) => {
   try {
     // translateText("Hello World!", "es")
-    await deleteOldCaseFiles()
-    const checkCaseFiles = await getAllNewCaseFiles()
+    await deleteOldCaseFiles();
+    const checkCaseFiles = await getAllNewCaseFiles();
     if (!checkCaseFiles[0]) {
       const allCountries = await getAllCountries();
       if (!allCountries[0]) {
         // res.status(500).json({ error: "Error fetching countries" });
         throw new Error(" Error fetching countries");
       }
-      const addedArticles = await addArticles(allCountries)
+      const addedArticles = await addArticles(allCountries);
       // res.status(200).json({ message: "Success adding articles!" })
-      console.log("Success adding articles!")
+      console.log(`Success adding ${addedArticles.length} articles!`);
       if (addedArticles.length > 0) {
         const result = await addSummaries(addedArticles);
         // console.log("Result", result);
       }
+      res.status(200).json({ message: "Added Summaries" });
     } else {
-      // res.status(200).json({ message: "Articles are up to date" })
-      console.log("Articles are up to date");
+      res.status(200).json({ message: "Articles are up to date" });
+      // console.log("Articles are up to date");
     }
-    res.status(200).json({ message: "Translate success"})
   } catch (error) {
     // console.error("Error fetching news:", error);
     res.status(500).json({ error: "Internal server error" });

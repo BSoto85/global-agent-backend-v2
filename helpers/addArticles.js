@@ -1,5 +1,5 @@
 const { addCaseFile } = require("../queries/caseFiles");
-const translateText = require("../helpers/translateText")
+const translateText = require("../helpers/translateText");
 
 const URL = process.env.BASE_URL;
 const key = process.env.NEWS_API_KEY;
@@ -21,17 +21,17 @@ function getFormattedDate() {
 
 const currentDate = getFormattedDate();
 
-async function addArticles(allCountries){
-  let addedArticles = []
+async function addArticles(allCountries) {
+  let addedArticles = [];
 
-  for(let country of allCountries){
+  for (let country of allCountries) {
     const url = `${URL}?source-country=${country.country_code}&language=${country.language_code}&date=${currentDate}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "x-api-key": key,
       },
-    }); 
+    });
 
     console.log("Response", response);
     if (!response.ok) {
@@ -43,33 +43,36 @@ async function addArticles(allCountries){
     const threeArticles = data.top_news[0].news.slice(0, 3);
 
     for (let newFile of threeArticles) {
-      //   console.log("New file", newFile); 
+      //   console.log("New file", newFile);
       //  *** if language_code !== en, then run translate helper function ***
       let translatedContent = newFile.text;
       let translatedTitle = newFile.title;
       // Translate content and title if the language is not English
-      // if (country.language_code !== 'en') {
-      if (country.language_code === 'en') {
-        // translatedContent = await translateText(newFile.text, 'en');
-        // translatedTitle = await translateText(newFile.title, 'en');
-        translatedContent = await translateText(newFile.text, 'es');
-        translatedTitle = await translateText(newFile.title, 'es');
+      if (country.language_code !== "en") {
+        // if (country.language_code === "en") {
+        translatedContent = await translateText(newFile.text, "en");
+        translatedTitle = await translateText(newFile.title, "en");
+        // translatedContent = await translateText(newFile.text, "es");
+        // translatedTitle = await translateText(newFile.title, "es");
       }
 
-    const addedCaseFile = await addCaseFile({
-      countries_id: country.id,
-      article_id: newFile.id,
-      // article_content: newFile.text,
-      // article_title: newFile.title,
-      article_content: translatedContent,
-      article_title: translatedTitle,
-      publish_date: newFile.publish_date,
-      photo_url: newFile.image,
-    });
+      const addedCaseFile = await addCaseFile({
+        countries_id: country.id,
+        article_id: newFile.id,
+        // article_content: newFile.text,
+        // article_title: newFile.title,
+        article_content: translatedContent,
+        article_title: translatedTitle,
+        publish_date: newFile.publish_date,
+        photo_url: newFile.image,
+      });
       console.log("Added file", addedCaseFile);
-      addedArticles.push(addedCaseFile.article_content);
+      addedArticles.push({
+        articleContent: addedCaseFile.article_content,
+        articleId: addedCaseFile.article_id,
+      });
     }
   }
-  return addedArticles
+  return addedArticles;
 }
 module.exports = addArticles;
