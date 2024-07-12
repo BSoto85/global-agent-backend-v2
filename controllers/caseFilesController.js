@@ -34,7 +34,7 @@ case_files.get("/news-from-australia", async (req, res) => {
       }
     } else {
       // res.status(200).json({ message: "Articles are up to date" })
-      throw new Error("Articles are up to date");
+      console.log("Articles are up to date");
     }
     res.status(200).json({ message: "Translate success"})
   } catch (error) {
