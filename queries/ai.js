@@ -1,26 +1,4 @@
 const db = require("../db/dbConfig");
-// require("dotenv").config();
-// const Anthropic = require("@anthropic-ai/sdk");
-// const anthropic = new Anthropic();
-// const systemPromptForArticleSummary = require("../helpers/aiData");
-// // const aiKey = process.env.ANTHROPIC_API_KEY;
-// const articleSummary = anthropic.messages.create({
-//   model: "claude-3-5-sonnet-20240620",
-//   max_tokens: 2000,
-//   temperature: 0,
-//   system: systemPromptForArticleSummary,
-//   messages: [
-//     {
-//       role: "user",
-//       content: [
-//         {
-//           type: "text",
-//           text: case_files.article_content,
-//         },
-//       ],
-//     },
-//   ],
-// });
 
 //PUT to add summary for younger to case files table
 const updateYoungerSummary = async (youngerSummary, article_id) => {
@@ -43,6 +21,18 @@ const updateOlderSummary = async (olderSummary, article_id) => {
       [olderSummary, article_id]
     );
     return addOlderSummary;
+  } catch (error) {
+    return error;
+  }
+};
+
+//SELECT all young summaries, old summaries and their article_id FROM case_files table
+const getAllSummaries = async () => {
+  try {
+    const allSummaries = await db.any(
+      "SELECT summary_young, summary_old, article_id FROM case_files"
+    );
+    return allSummaries;
   } catch (error) {
     return error;
   }
@@ -84,8 +74,35 @@ const addQuestionsAndAnswers = async (
     return error;
   }
 };
+
+const getAllYoungerQuestionsAndAnswers = async (case_files_article_id) => {
+  try {
+    const allYoungerQuestions = await db.any(
+      `SELECT * FROM questions_younger WHERE questions_younger.case_files_article_id =$1`,
+      case_files_article_id
+    );
+    return allYoungerQuestions;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
+  try {
+    const allOlderQuestionsAndAnswers = await db.any(
+      `SELECT * FROM questions_older WHERE questions_older.case_files_article_id = $1`,
+      case_files_article_id
+    );
+    return allOlderQuestionsAndAnswers;
+  } catch (error) {
+    return error;
+  }
+};
 module.exports = {
   addQuestionsAndAnswers,
   updateYoungerSummary,
   updateOlderSummary,
+  getAllYoungerQuestionsAndAnswers,
+  getAllOlderQuestionsAndAnswers,
+  getAllSummaries,
 };
