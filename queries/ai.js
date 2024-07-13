@@ -38,38 +38,50 @@ const getAllSummaries = async () => {
   }
 };
 
-const addQuestionsAndAnswers = async (
-  question,
-  age_range,
+const addYoungerQuestionAndAnswers = async (
+  youngerQuestion,
   case_files_article_id
 ) => {
   try {
-    if (age_range === "younger") {
-      return await db.any(
-        "INSERT INTO questions_younger(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-        [
-          question.question,
-          question.correct_answer,
-          question.incorrect_answer1,
-          question.incorrect_answer2,
-          question.incorrect_answer3,
-          case_files_article_id,
-        ]
-      );
-    }
-    if (age_range === "older") {
-      return await db.any(
-        "INSERT INTO questions_older(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-        [
-          question.question,
-          question.correct_answer,
-          question.incorrect_answer1,
-          question.incorrect_answer2,
-          question.incorrect_answer3,
-          case_files_article_id,
-        ]
-      );
-    }
+    console.log("**Query**", youngerQuestion);
+    const youngerQuestionAndAnswers = await db.one(
+      "INSERT INTO questions_younger(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      [
+        youngerQuestion.question,
+        youngerQuestion.answers[0],
+        youngerQuestion.answers[1],
+        youngerQuestion.answers[2],
+        youngerQuestion.answers[3],
+        case_files_article_id,
+      ]
+    );
+    console.log(
+      "Query younger questions and answers",
+      youngerQuestionAndAnswers
+    );
+    return youngerQuestionAndAnswers;
+  } catch (error) {
+    return error;
+  }
+};
+
+const addOlderQuestionAndAnswers = async (
+  olderQuestion,
+  case_files_article_id
+) => {
+  try {
+    const olderQuestionAndAnswers = await db.one(
+      "INSERT INTO questions_older(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      [
+        olderQuestion.question,
+        olderQuestion.answers[0],
+        olderQuestion.answers[1],
+        olderQuestion.answers[2],
+        olderQuestion.answers[3],
+        case_files_article_id,
+      ]
+    );
+    return olderQuestionAndAnswers;
   } catch (error) {
     return error;
   }
@@ -99,10 +111,12 @@ const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
   }
 };
 module.exports = {
-  addQuestionsAndAnswers,
+  // addQuestionsAndAnswers,
   updateYoungerSummary,
   updateOlderSummary,
   getAllYoungerQuestionsAndAnswers,
   getAllOlderQuestionsAndAnswers,
   getAllSummaries,
+  addYoungerQuestionAndAnswers,
+  addOlderQuestionAndAnswers,
 };

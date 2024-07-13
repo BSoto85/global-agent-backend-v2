@@ -39,10 +39,10 @@ const getSummaries = async (content, article_id) => {
     articleSummary.content[0].text,
     "olderSummary"
   );
-  console.log("Article summary", articleSummary);
+  // console.log("Article summary", articleSummary);
   // const parsedYoung = JSON.parse(articleSummary.content[0].text).youngerSummary;
   // const parsedOld = JSON.parse(articleSummary.content[0].text).olderSummary;
-  console.log(JSON.parse(articleSummary.content[0].text), "---------");
+  // console.log(JSON.parse(articleSummary.content[0].text), "---------");
   // console.log("parsed young", parsedYoung);
   // console.log("parsed old", parsedOld);
   const updatedYoungerSummary = await updateYoungerSummary(

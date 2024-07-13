@@ -33,13 +33,13 @@ async function addArticles(allCountries) {
       },
     });
 
-    console.log("Response", response);
+    // console.log("Response", response);
     if (!response.ok) {
       //   console.error(response.status);
       // throw new Error("Failed to fetch news");
     }
     const data = await response.json();
-    console.log("Data", data);
+    // console.log("Data", data);
     const threeArticles = data.top_news[0].news.slice(0, 3);
 
     for (let newFile of threeArticles) {
@@ -66,7 +66,7 @@ async function addArticles(allCountries) {
         publish_date: newFile.publish_date,
         photo_url: newFile.image,
       });
-      console.log("Added file", addedCaseFile);
+      // console.log("Added file", addedCaseFile);
       addedArticles.push({
         articleContent: addedCaseFile.article_content,
         articleId: addedCaseFile.article_id,
