@@ -1,9 +1,9 @@
 const express = require("express");
 const youngerQuestions = express.Router();
 
-const {
-  getAllYoungerQuestionsAndAnswers,
-} = require("../queries/youngerQuestions");
+// const {
+//   getAllYoungerQuestionsAndAnswers,
+// } = require("../queries/questions");
 
 //http://localhost:3003/api/younger_questions/:case_files_id
 youngerQuestions.get("/:case_files_id", async (req, res) => {
