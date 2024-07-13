@@ -55,10 +55,6 @@ const addYoungerQuestionAndAnswers = async (
         case_files_article_id,
       ]
     );
-    console.log(
-      "Query younger questions and answers",
-      youngerQuestionAndAnswers
-    );
     return youngerQuestionAndAnswers;
   } catch (error) {
     return error;

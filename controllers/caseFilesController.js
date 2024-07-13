@@ -46,7 +46,7 @@ case_files.get("/news-from-australia", async (req, res) => {
         await delay(500);
         const addedYoungerQuestionAndAnswers =
           await addYoungerQuestionAndAnswers(
-            getQuestionsAndAnswers.questionsForYounger,
+            getQuestionsAndAnswers.questionsForYounger[0],
             file.article_id
           );
         i++;
