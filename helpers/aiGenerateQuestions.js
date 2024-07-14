@@ -6,7 +6,7 @@ const {
 } = require("./aiData");
 
 //http://localhost:3003/api/ai/questions
-const generateQuestionsAndAnswers = async (file) => {
+const generateQuestionsAndAnswers = async (summary) => {
   const articleQuestionsAndAnswers = await anthropic.messages.create({
     model: "claude-3-5-sonnet-20240620",
     max_tokens: 4096,
@@ -18,7 +18,7 @@ const generateQuestionsAndAnswers = async (file) => {
         content: [
           {
             type: "text",
-            text: file.summary_young + file.summary_old,
+            text: summary.summary_young + summary.summary_old,
           },
         ],
       },
@@ -29,7 +29,9 @@ const generateQuestionsAndAnswers = async (file) => {
   //   "*******",
   //   JSON.parse(articleQuestionsAndAnswers.content[0].text)
   // );
-  return JSON.parse(articleQuestionsAndAnswers.content[0].text);
+  const parsed = JSON.parse(articleQuestionsAndAnswers.content[0].text);
+  // console.log("^^^^^^", { ...parsed, article_id: summary.article_id });
+  return { ...parsed, article_id: summary.article_id };
 };
 
 module.exports = { generateQuestionsAndAnswers };

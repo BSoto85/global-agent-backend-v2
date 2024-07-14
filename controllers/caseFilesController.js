@@ -34,27 +34,33 @@ case_files.get("/news-from-australia", async (req, res) => {
       const addedArticles = await addArticles(allCountries);
       // res.status(200).json({ message: "Success adding articles!" })
       // console.log(`Success adding ${addedArticles.length} articles!`);
-      if (addedArticles.length > 0) {
-        await addSummaries(addedArticles);
-        // console.log("Result", result);
+      if (addedArticles.length === 0) {
+        throw new Error(" Error adding articles");
       }
-      const getCaseFiles = await getAllNewCaseFiles();
-      let i = 0;
-      for (const file of getCaseFiles) {
-        const getQuestionsAndAnswers = await generateQuestionsAndAnswers(file);
-        console.log("--------", getQuestionsAndAnswers.questionsForYounger[0]);
-        await delay(500);
-        const addedYoungerQuestionAndAnswers =
-          await addYoungerQuestionAndAnswers(
-            getQuestionsAndAnswers.questionsForYounger[0],
-            file.article_id
-          );
-        i++;
-        await delay(1000);
-        console.log(
-          "Younger questions and answers",
-          addedYoungerQuestionAndAnswers
+      const summariesArr = await addSummaries(addedArticles);
+      for (const summary of summariesArr) {
+        const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
+          summary
         );
+        console.log("%%%%", getQuestionsAndAnswers);
+        // await delay(500);
+        for (const question of getQuestionsAndAnswers.questionsForYounger) {
+          const addedYoungerQuestionAndAnswers =
+            await addYoungerQuestionAndAnswers(
+              question,
+              getQuestionsAndAnswers.article_id
+            );
+          console.log(
+            "Younger questions and answers",
+            addedYoungerQuestionAndAnswers
+          );
+          // const addedYoungerQuestionAndAnswers =
+          //   await addYoungerQuestionAndAnswers(
+          //     getQuestionsAndAnswers.questionsForYounger[0],
+          //     file.article_id
+          //   );
+          await delay(1000);
+        }
       }
       res.status(200).json({ message: "Added Summaries" });
     } else {
