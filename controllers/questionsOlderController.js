@@ -1,6 +1,17 @@
 const express = require("express");
 const older_questions = express.Router();
+const { getAllOlderQuestions } = require("../queries/ai");
 // const {getAllOlderQuestionsAndAnswers} = require("../queries/questionsOlder")
+
+//http://localhost:3003/api/older_questions
+older_questions.get("/", async (req, res) => {
+  const getAllQuestionsAndAnswers = await getAllOlderQuestions();
+  if (getAllQuestionsAndAnswers[0]) {
+    res.status(200).json(getAllQuestionsAndAnswers);
+  } else {
+    res.status(500).json({ error: "Error fetching younger questions" });
+  }
+});
 
 // QUESTIONS and ANSWERS http://localhost:3003/api/older_questions/1
 older_questions.get("/:case_files_id", async (req, res) => {

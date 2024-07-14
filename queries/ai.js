@@ -40,7 +40,7 @@ const getAllSummaries = async () => {
 
 const addYoungerQuestionAndAnswers = async (youngerQuestion, article_id) => {
   try {
-    console.log("**Query**", youngerQuestion);
+    // console.log("**Query**", youngerQuestion);
     const youngerQuestionAndAnswers = await db.one(
       "INSERT INTO questions_younger(y_question, y_correct_answer, y_incorrect_answer1, y_incorrect_answer2, y_incorrect_answer3, y_case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [
@@ -52,7 +52,7 @@ const addYoungerQuestionAndAnswers = async (youngerQuestion, article_id) => {
         article_id,
       ]
     );
-    console.log("-----------", youngerQuestionAndAnswers);
+    // console.log("-----------", youngerQuestionAndAnswers);
     return youngerQuestionAndAnswers;
   } catch (error) {
     return error;
@@ -111,6 +111,15 @@ const getAllYoungerQuestions = async () => {
   }
 };
 
+const getAllOlderQuestions = async () => {
+  try {
+    const allQuestions = await db.any("SELECT * from questions_older");
+    return allQuestions;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   // addQuestionsAndAnswers,
   updateYoungerSummary,
@@ -121,4 +130,5 @@ module.exports = {
   addYoungerQuestionAndAnswers,
   addOlderQuestionAndAnswers,
   getAllYoungerQuestions,
+  getAllOlderQuestions,
 };
