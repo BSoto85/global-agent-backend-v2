@@ -14,7 +14,10 @@ const { addSummaries } = require("../helpers/addSummaries");
 const {
   generateQuestionsAndAnswers,
 } = require("../helpers/aiGenerateQuestions");
-const { addYoungerQuestionAndAnswers } = require("../queries/ai");
+const {
+  addYoungerQuestionAndAnswers,
+  addOlderQuestionAndAnswers,
+} = require("../queries/ai");
 const translateText = require("../helpers/translateText");
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,11 +41,12 @@ case_files.get("/news-from-australia", async (req, res) => {
         throw new Error(" Error adding articles");
       }
       const summariesArr = await addSummaries(addedArticles);
+      //For younger questions
       for (const summary of summariesArr) {
         const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
           summary
         );
-        console.log("%%%%", getQuestionsAndAnswers);
+        // console.log("%%%%", getQuestionsAndAnswers);
         // await delay(500);
         for (const question of getQuestionsAndAnswers.questionsForYounger) {
           const addedYoungerQuestionAndAnswers =
@@ -50,15 +54,29 @@ case_files.get("/news-from-australia", async (req, res) => {
               question,
               getQuestionsAndAnswers.article_id
             );
+          // console.log(
+          //   "Younger questions and answers",
+          //   addedYoungerQuestionAndAnswers
+          // );
+          await delay(1000);
+        }
+      }
+      //For older questions
+      for (const summary of summariesArr) {
+        const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
+          summary
+        );
+        console.log("%%%%", getQuestionsAndAnswers);
+        // await delay(500);
+        for (const question of getQuestionsAndAnswers.questionsForOlder) {
+          const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
+            question,
+            getQuestionsAndAnswers.article_id
+          );
           console.log(
             "Younger questions and answers",
-            addedYoungerQuestionAndAnswers
+            addedOlderQuestionAndAnswers
           );
-          // const addedYoungerQuestionAndAnswers =
-          //   await addYoungerQuestionAndAnswers(
-          //     getQuestionsAndAnswers.questionsForYounger[0],
-          //     file.article_id
-          //   );
           await delay(1000);
         }
       }

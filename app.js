@@ -26,7 +26,7 @@ app.use(express.json());
 app.use("/api/auth", authController);
 app.use("/api/countries", countriesController);
 app.use("/api/younger_questions", youngerQuestionsController);
-app.use("/api/older_questions/", questionsOlderController);
+app.use("/api/older_questions", questionsOlderController);
 app.use("/api/stats", statsController);
 app.use("/api/case_files", caseFilesController);
 // app.use("/api/younger", aiController);
