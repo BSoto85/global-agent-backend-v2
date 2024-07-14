@@ -50,11 +50,15 @@ const getSummaries = async (content, article_id) => {
     article_id
   );
   const updatedOlderSummary = await updateOlderSummary(parsedOld, article_id);
-  console.log("Younger", updatedYoungerSummary);
-  console.log("Older", updatedOlderSummary);
+  // console.log("Younger", updatedYoungerSummary);
+  // console.log("Older", updatedOlderSummary);
 
   if (updatedYoungerSummary && updatedOlderSummary) {
-    return { updatedYoungerSummary, updatedOlderSummary };
+    return {
+      ...updatedYoungerSummary,
+      ...updatedOlderSummary,
+      article_id: article_id,
+    };
   }
   // if (updatedYoungerSummary[0]) {
   //   res

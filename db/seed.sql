@@ -57,14 +57,14 @@ VALUES
     -- ('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mrpigstuff.com%2F&psig=AOvVaw0AkyPle99k8kHyXGl0U1lq&ust=1720284392101000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLjc6vyskIcDFQAAAAAdAAAAABAR', 'foodstuff', 2);
 
 
-INSERT INTO questions_younger(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id)
+INSERT INTO questions_younger(y_question, y_correct_answer, y_incorrect_answer1, y_incorrect_answer2, y_incorrect_answer3, y_case_files_article_id)
 VALUES
     ('Where is the current war taking place?', 'Eastern Ukraine', 'Western Russia', 'Northern Poland', 'Southern Finland', 123456789),
     ('How many Ukrainian soldiers were reported killed in the recent fighting?', 'At least 8', 'Over 100', 'None', 'Exactly 50', 123456789),
     ('What is the current nighttime temperature in the affected area?', 'Minus 18 degrees Fahrenheit', '75 degrees Fahrenheit', '32 degrees Fahrenheit', '00 degrees Fahrenheit', 123456789),
     ('Who is training and equipping Ukrainian soldiers?', 'The United States Army', 'The Chinese military', 'The Brazilian air force', 'The Australian navy', 123456789);
 
-INSERT INTO questions_older(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id)
+INSERT INTO questions_older(o_question, o_correct_answer, o_incorrect_answer1, o_incorrect_answer2, o_incorrect_answer3, o_case_files_article_id)
 VALUES
     ('What recent event has complicated US efforts to improve relations with Russia?', 'An eruption of fighting in eastern Ukraine', 'A peace treaty signed between Ukraine and Russia', 'The discovery of oil in the Black Sea', 'The discovery of oil in the Black Sea', 123456789),
     ('What are "gray zone" territories in this conflict?', 'Areas between front lines that were previously buffer zones', 'Regions with unclear political allegiance', 'Zones where no fighting is allowed', 'Territories controlled by UN peacekeepers', 123456789),

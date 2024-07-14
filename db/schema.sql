@@ -74,20 +74,20 @@ CREATE TABLE case_files (
 
 CREATE TABLE questions_younger (
     id SERIAL PRIMARY KEY,
-    question VARCHAR(150),
-    correct_answer VARCHAR(100),
-    incorrect_answer1 VARCHAR(100),
-    incorrect_answer2 VARCHAR(100),
-    incorrect_answer3 VARCHAR(100),
-    case_files_article_id INTEGER REFERENCES case_files(article_id) ON DELETE CASCADE
+    y_question VARCHAR(150),
+    y_correct_answer VARCHAR(100),
+    y_incorrect_answer1 VARCHAR(100),
+    y_incorrect_answer2 VARCHAR(100),
+    y_incorrect_answer3 VARCHAR(100),
+    y_case_files_article_id INTEGER REFERENCES case_files(article_id) ON DELETE CASCADE
 );
 
 CREATE TABLE questions_older (
     id SERIAL PRIMARY KEY,
-    question VARCHAR(150),
-    correct_answer VARCHAR(100),
-    incorrect_answer1 VARCHAR(100),
-    incorrect_answer2 VARCHAR(100),
-    incorrect_answer3 VARCHAR(100),
-    case_files_article_id INTEGER REFERENCES case_files(article_id) ON DELETE CASCADE
+    o_question VARCHAR(150),
+    o_correct_answer VARCHAR(100),
+    o_incorrect_answer1 VARCHAR(100),
+    o_incorrect_answer2 VARCHAR(100),
+    o_incorrect_answer3 VARCHAR(100),
+    o_case_files_article_id INTEGER REFERENCES case_files(article_id) ON DELETE CASCADE
 );

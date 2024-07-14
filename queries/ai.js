@@ -38,43 +38,38 @@ const getAllSummaries = async () => {
   }
 };
 
-const addYoungerQuestionAndAnswers = async (
-  youngerQuestion,
-  case_files_article_id
-) => {
+const addYoungerQuestionAndAnswers = async (youngerQuestion, article_id) => {
   try {
     console.log("**Query**", youngerQuestion);
     const youngerQuestionAndAnswers = await db.one(
-      "INSERT INTO questions_younger(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO questions_younger(y_question, y_correct_answer, y_incorrect_answer1, y_incorrect_answer2, y_incorrect_answer3, y_case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         youngerQuestion.question,
         youngerQuestion.answers[0],
         youngerQuestion.answers[1],
         youngerQuestion.answers[2],
         youngerQuestion.answers[3],
-        case_files_article_id,
+        article_id,
       ]
     );
+    console.log("-----------", youngerQuestionAndAnswers);
     return youngerQuestionAndAnswers;
   } catch (error) {
     return error;
   }
 };
 
-const addOlderQuestionAndAnswers = async (
-  olderQuestion,
-  case_files_article_id
-) => {
+const addOlderQuestionAndAnswers = async (olderQuestion, article_id) => {
   try {
     const olderQuestionAndAnswers = await db.one(
-      "INSERT INTO questions_older(question, correct_answer, incorrect_answer1, incorrect_answer2, incorrect_answer3, case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO questions_older(o_question, o_correct_answer, o_incorrect_answer1, o_incorrect_answer2, o_incorrect_answer3, o_case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         olderQuestion.question,
         olderQuestion.answers[0],
         olderQuestion.answers[1],
         olderQuestion.answers[2],
         olderQuestion.answers[3],
-        case_files_article_id,
+        article_id,
       ]
     );
     return olderQuestionAndAnswers;
@@ -86,7 +81,7 @@ const addOlderQuestionAndAnswers = async (
 const getAllYoungerQuestionsAndAnswers = async (case_files_article_id) => {
   try {
     const allYoungerQuestions = await db.any(
-      `SELECT * FROM questions_younger WHERE questions_younger.case_files_article_id =$1`,
+      `SELECT * FROM questions_younger WHERE questions_younger.y_case_files_article_id =$1`,
       case_files_article_id
     );
     return allYoungerQuestions;
@@ -106,6 +101,16 @@ const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
     return error;
   }
 };
+
+const getAllYoungerQuestions = async () => {
+  try {
+    const allQuestions = await db.any("SELECT * from questions_younger");
+    return allQuestions;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   // addQuestionsAndAnswers,
   updateYoungerSummary,
@@ -115,4 +120,5 @@ module.exports = {
   getAllSummaries,
   addYoungerQuestionAndAnswers,
   addOlderQuestionAndAnswers,
+  getAllYoungerQuestions,
 };
