@@ -1,6 +1,8 @@
 const { addCaseFile } = require("../queries/caseFiles");
 const translateText = require("../helpers/translateText");
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const URL = process.env.BASE_URL;
 const key = process.env.NEWS_API_KEY;
 
@@ -72,6 +74,7 @@ async function addArticles(allCountries) {
         articleId: addedCaseFile.article_id,
       });
     }
+    delay(1000);
   }
   return addedArticles;
 }
