@@ -22,8 +22,8 @@ const translateText = require("../helpers/translateText");
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// http://localhost:3003/api/case_files/news-from-australia
-case_files.get("/news-from-australia", async (req, res) => {
+// http://localhost:3003/api/case_files/world_news
+case_files.get("/world_news", async (req, res) => {
   try {
     // translateText("Hello World!", "es")
     await deleteOldCaseFiles();
@@ -36,7 +36,7 @@ case_files.get("/news-from-australia", async (req, res) => {
       }
       const addedArticles = await addArticles(allCountries);
       // res.status(200).json({ message: "Success adding articles!" })
-      // console.log(`Success adding ${addedArticles.length} articles!`);
+      console.log(`Success adding ${addedArticles.length} articles!`);
       if (addedArticles.length === 0) {
         throw new Error(" Error adding articles");
       }
@@ -73,14 +73,14 @@ case_files.get("/news-from-australia", async (req, res) => {
             question,
             getQuestionsAndAnswers.article_id
           );
-          console.log(
-            "Younger questions and answers",
-            addedOlderQuestionAndAnswers
-          );
+          // console.log(
+          //   "Younger questions and answers",
+          //   addedOlderQuestionAndAnswers
+          // );
           await delay(1000);
         }
       }
-      res.status(200).json({ message: "Added Summaries" });
+      res.status(200).json({ message: "Added Summaries and questions" });
     } else {
       res.status(200).json({ message: "Articles are up to date" });
       // console.log("Articles are up to date");
