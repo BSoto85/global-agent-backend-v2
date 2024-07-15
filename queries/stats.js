@@ -1,5 +1,16 @@
 const db = require("../db/dbConfig");
 
+const getLeaderboard = async () => {
+  try {
+    const leaderboard= await db.any(
+      `SELECT users.first_name, users.last_name, users.photo, stats.xp FROM  users LEFT JOIN stats ON stats.user_id = users.id `
+    );
+    return leaderboard;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getStatsByUserId = async (user_id) => {
   try {
     const statsByUserId = await db.one(
@@ -46,6 +57,7 @@ const updateUserStats = async (stats) => {
 };
 
 module.exports = {
+  getLeaderboard,
   getStatsByUserId,
   updateUserStats,
   createUserStats,

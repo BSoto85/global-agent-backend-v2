@@ -14,7 +14,12 @@ const caseFilesController = require("./controllers/caseFilesController");
 const app = express();
 
 // MIDDLEWARE
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000"
+  // origin: ["https://main--fridgem8.netlify.app", "http://localhost:3000"]
+}));
+
+
 
 app.use((req, _res, next) => {
   console.log("Origin Requested:", req.headers.origin);
