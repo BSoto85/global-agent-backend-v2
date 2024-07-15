@@ -1,7 +1,7 @@
 const express = require("express");
 const older_questions = express.Router();
 const { getAllOlderQuestions } = require("../queries/ai");
-// const {getAllOlderQuestionsAndAnswers} = require("../queries/questionsOlder")
+const {getAllOlderQuestionsAndAnswers} = require("../queries/ai.js")
 
 //http://localhost:3003/api/older_questions
 older_questions.get("/", async (req, res) => {
