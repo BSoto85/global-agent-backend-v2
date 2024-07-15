@@ -93,7 +93,7 @@ const getAllYoungerQuestionsAndAnswers = async (case_files_article_id) => {
 const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
   try {
     const allOlderQuestionsAndAnswers = await db.any(
-      `SELECT * FROM questions_older WHERE questions_older.case_files_article_id = $1`,
+      `SELECT * FROM questions_older WHERE questions_older.o_case_files_article_id = $1`,
       case_files_article_id
     );
     return allOlderQuestionsAndAnswers;
