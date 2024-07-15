@@ -3,7 +3,19 @@ const stats = express.Router();
 const {
   getStatsByUserId,
   updateUserStats,
+  getLeaderboard
 } = require("../queries/stats");
+
+// http://localhost:3003/api/stats/leaderboard
+stats.get("/leaderboard", async (req, res) => {
+  const leaderboard = await getLeaderboard();
+  if (leaderboard[0]) {
+    res.status(200).json(leaderboard);
+  } else {
+    res.status(500).json({ error: "Error fetching leaderboard" });
+  }
+});
+
 
 // http://localhost:3003/api/stats/1
 stats.get("/:user_id", async (req, res) => {
