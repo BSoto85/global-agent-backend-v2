@@ -2,10 +2,10 @@ const db = require("../db/dbConfig");
 
 
 //SHOW
-const getProfile = async (user_id) => {
+const getProfile = async (uid) => {
   try {
     // (id, first name, last name, dob, photo, email, created_at only)
-    const profile = await db.one(`SELECT id, email, first_name, last_name, dob, photo, created_at FROM users WHERE id=$1`, user_id);
+    const profile = await db.one(`SELECT id, email, first_name, last_name, dob, photo, created_at FROM users WHERE uid=$1`, uid);
     return profile;
   } catch (error) {
     return error;
