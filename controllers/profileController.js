@@ -5,10 +5,10 @@ const {
   getProfile,
 } = require("../queries/profile");
 
-// http://localhost:3003/api/profile/1
-profile.get("/:user_id", async (req, res) => {
-  const { user_id } = req.params;
-  const profile = await getProfile(user_id);
+// http://localhost:3003/api/profile/skZmowShBkPAbWHUYx6It5XdXg73
+profile.get("/:uid", async (req, res) => {
+  const { uid } = req.params;
+  const profile = await getProfile(uid);
   if (profile.id) {
     res.status(200).json(profile);
   } else {
