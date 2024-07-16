@@ -10,12 +10,19 @@
 
 INSERT INTO users(uid, first_name, last_name, email, dob, photo, created_at)
 VALUES
-('skZmowShBkPAbWHUYx6It5XdXg73', 'Brenda', 'Soto', 'brendapuello@yahoo.com', '1985-10-14', 'https://res.cloudinary.com/dnqfg86zq/image/upload/t_Fill300x300/v1719864208/vcphjm5eiprxr8hwqcvk.jpg', NOW());
+('skZmowShBkPAbWHUYx6It5XdXg73', 'Brenda', 'Soto', 'brendapuello@yahoo.com', '1985-10-14', 'https://res.cloudinary.com/dnqfg86zq/image/upload/t_Fill300x300/v1719864208/vcphjm5eiprxr8hwqcvk.jpg', NOW()),
+('ydwn4bm1V8V78f5Ngwx9j2e6s6r1', 'Ethan', 'Soto', 'ethan@me.com', '2015-05-26', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEchmkJf4fby1ACsBewEIJJ_GC7x5YgCMhb_SARAg9nWG06J5P09n2G4hd8vlhUSqK18Q&usqp=CAU', NOW()),
+('QDD97XBisEMs4i8c6lL3m0FQgLU2', 'Adam', 'Soto', 'adam@me.com', '2008-09-04', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEchmkJf4fby1ACsBewEIJJ_GC7x5YgCMhb_SARAg9nWG06J5P09n2G4hd8vlhUSqK18Q&usqp=CAU', NOW()),
+('UluEED5XkIbCNtI2sSxPpgLhjOn1', 'Emalee', 'Soto', 'ema@me.com', '1999-08-15', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEchmkJf4fby1ACsBewEIJJ_GC7x5YgCMhb_SARAg9nWG06J5P09n2G4hd8vlhUSqK18Q&usqp=CAU', NOW()),
+('TSiLsS0inMNMXIKzJFYWDNPOduo2', 'Anita', 'Owen', 'anita@me.com', '1988-10-19', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEchmkJf4fby1ACsBewEIJJ_GC7x5YgCMhb_SARAg9nWG06J5P09n2G4hd8vlhUSqK18Q&usqp=CAU', NOW());
 
 INSERT INTO stats(xp, games_played, questions_correct, questions_wrong, user_id)
 VALUES
-   (200, 3, 8, 4, 1);
---    (450, 5, 16, 4, 2);
+   (200, 3, 8, 4, 1),
+   (450, 5, 16, 4, 2),
+   (275, 4, 10, 6, 3),
+   (1025, 13, 41, 11, 4),
+   (2375, 19, 76, 0, 5);
 
 -- INSERT INTO badges(name, image, description, xp_required)
 -- VALUES
