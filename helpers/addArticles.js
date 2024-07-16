@@ -42,7 +42,13 @@ async function addArticles(allCountries) {
     }
     const data = await response.json();
     // console.log("Data", data);
-    const threeArticles = data.top_news[0].news.slice(0, 3);
+    const allArticles = data.top_news[0].news;
+    const middle = Math.floor(allArticles.length / 2);
+    const threeArticles = [
+      allArticles[0],
+      allArticles[middle],
+      allArticles[allArticles.length - 1],
+    ];
 
     for (let newFile of threeArticles) {
       //   console.log("New file", newFile);
