@@ -4,6 +4,7 @@ CREATE DATABASE global_agent;
 
 \c global_agent;
 
+-- Add comments explaing what all columns are about
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     uid VARCHAR(255),
@@ -52,6 +53,7 @@ CREATE TABLE countries (
 --    user_id INTEGER NOT NULL REFERENCES users(id)
 -- );
 
+-- Change names of older and younger to add demographic at the end
 CREATE TABLE case_files (
     id SERIAL PRIMARY KEY,
     article_id INTEGER UNIQUE,

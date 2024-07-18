@@ -9,23 +9,21 @@ const questionsOlderController = require("./controllers/questionsOlderController
 const statsController = require("./controllers/statsController");
 const caseFilesController = require("./controllers/caseFilesController");
 // const youngerQuestionsController = require("./controllers/aiController");
-const profileController = require("./controllers/profileController")
+const profileController = require("./controllers/profileController");
 
 // CONFIGURATION
 const app = express();
- const corsOptions = {
+const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
- }
- app.use(cors(corsOptions))
+};
+app.use(cors());
 
 // MIDDLEWARE
 // app.use(cors({
 //   origin: "http://localhost:3000"
 //   // origin: ["https://main--fridgem8.netlify.app", "http://localhost:3000"]
 // }));
-
-
 
 app.use((req, _res, next) => {
   console.log("Origin Requested:", req.headers.origin);

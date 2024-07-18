@@ -22,10 +22,11 @@ const translateText = require("../helpers/translateText");
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+//Comment why using delay
 // http://localhost:3003/api/case_files/world_news
 case_files.get("/world_news", async (req, res) => {
   try {
-    // translateText("Hello World!", "es")
+    // console.log(translateText("Hello World!", "es"));
     await deleteOldCaseFiles();
     const checkCaseFiles = await getAllNewCaseFiles();
     if (!checkCaseFiles[0]) {
