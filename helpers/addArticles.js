@@ -58,8 +58,9 @@ async function addArticles(allCountries) {
       // Translate content and title if the language is not English
       if (country.language_code !== "en") {
         // if (country.language_code === "en") {
-        translatedContent = await translateText(newFile.text, "en");
-        translatedTitle = await translateText(newFile.title, "en");
+        let translatedContent = await translateText("Hola", "en");
+        let translatedTitle = await translateText("Como estas", "en");
+        console.log(translatedContent);
         // translatedContent = await translateText(newFile.text, "es");
         // translatedTitle = await translateText(newFile.title, "es");
       }
