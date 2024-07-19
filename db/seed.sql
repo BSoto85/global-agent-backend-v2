@@ -34,13 +34,14 @@ VALUES
 
 INSERT INTO countries(name, flag, country_code, language_code)
 VALUES
-    ('Spain', '🇪🇸', 'es', 'es'),
-    -- ('Canada', '🇨🇦', 'ca', 'en');
+    ('Spain', 'https://res.cloudinary.com/dgifdj6nx/image/upload/v1721233315/GlobalAgent-flagSpainGif_adh0ik.gif', 'es', 'es'),
+    ('Canada', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721233336/GlobalAgent-flagCanadaGif_f9bbfq.gif', 'ca', 'en');
     -- ('Brazil', '🇧🇷', 'br', 'pt');
     -- ('Dominican Republic', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945529/download_1_ey5dxy.png', 'do', 'es'),
     -- ('Portugal', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945536/download_2_wosmqd.png', 'pt'),
     -- ('China', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945542/download_3_xdtw9a.png', 'cn', 'zh');
-    ('Australia', '🇦🇺', 'au', 'en');
+    -- ('Australia', '🇦🇺', 'au', 'en');
+    ('Germany', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'de', 'de');
 
 -- INSERT INTO user_badges(badge_id, user_id)
 -- VALUES

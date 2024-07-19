@@ -31,72 +31,70 @@ case_files.get("/world_news", async (req, res) => {
     // await deleteOldCaseFiles();
     // const checkCaseFiles = await getAllNewCaseFiles();
     // if (!checkCaseFiles[0]) {
-      await deleteOldArticles();
-      const allCountries = await getAllCountries();
-      if (!allCountries[0]) {
-        // res.status(500).json({ error: "Error fetching countries" });
-        throw new Error(" Error fetching countries");
-      }
-      const addedArticles = await addArticles(allCountries);
-      // res.status(200).json({ message: "Success adding articles!" })
-      console.log(`*****Success adding ${addedArticles.length} articles!*****`);
-      if (addedArticles.length === 0) {
-        throw new Error(" Error adding articles");
-      }
-      const summariesArr = await addSummaries(addedArticles);
-      
-      for (const summary of summariesArr) {
-        const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
-          summary
-        );
-        console.log("%%%%", getQuestionsAndAnswers);
-        // await delay(500);
-        //For younger questions
-        for (const question of getQuestionsAndAnswers.questionsForYounger) {
-          const addedYoungerQuestionAndAnswers =
-            await addYoungerQuestionAndAnswers(
-              question,
-              getQuestionsAndAnswers.article_id
-            );
-          // console.log(
-          //   "Younger questions and answers",
-          //   addedYoungerQuestionAndAnswers
-          // );
-          await delay(1000);
-        }
-        //For older questions
-        for (const question of getQuestionsAndAnswers.questionsForOlder) {
-          const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
+    await deleteOldArticles();
+    const allCountries = await getAllCountries();
+    if (!allCountries[0]) {
+      // res.status(500).json({ error: "Error fetching countries" });
+      throw new Error(" Error fetching countries");
+    }
+    const addedArticles = await addArticles(allCountries);
+    // res.status(200).json({ message: "Success adding articles!" })
+    console.log(`*****Success adding ${addedArticles.length} articles!*****`);
+    if (addedArticles.length === 0) {
+      throw new Error(" Error adding articles");
+    }
+    const summariesArr = await addSummaries(addedArticles);
+
+    for (const summary of summariesArr) {
+      const getQuestionsAndAnswers = await generateQuestionsAndAnswers(summary);
+      console.log("%%%%", getQuestionsAndAnswers);
+      // await delay(500);
+      //For younger questions
+      for (const question of getQuestionsAndAnswers.questionsForYounger) {
+        const addedYoungerQuestionAndAnswers =
+          await addYoungerQuestionAndAnswers(
             question,
             getQuestionsAndAnswers.article_id
           );
-          // console.log(
-          //   "Younger questions and answers",
-          //   addedOlderQuestionAndAnswers
-          // );
-          await delay(1000);
-        }
+        // console.log(
+        //   "Younger questions and answers",
+        //   addedYoungerQuestionAndAnswers
+        // );
+        await delay(500);
       }
       //For older questions
-      // for (const summary of summariesArr) {
-      //   const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
-      //     summary
-      //   );
-        // console.log("%%%%", getQuestionsAndAnswers);
-        // await delay(500);
-        // for (const question of getQuestionsAndAnswers.questionsForOlder) {
-        //   const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
-        //     question,
-        //     getQuestionsAndAnswers.article_id
-        //   );
-        //   // console.log(
-        //   //   "Younger questions and answers",
-        //   //   addedOlderQuestionAndAnswers
-        //   // );
-        //   await delay(1000);
-        // }
-      // }
-      res.status(200).json({ message: "Added Summaries and questions" });
+      for (const question of getQuestionsAndAnswers.questionsForOlder) {
+        const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
+          question,
+          getQuestionsAndAnswers.article_id
+        );
+        // console.log(
+        //   "Younger questions and answers",
+        //   addedOlderQuestionAndAnswers
+        // );
+        await delay(500);
+      }
+    }
+    //For older questions
+    // for (const summary of summariesArr) {
+    //   const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
+    //     summary
+    //   );
+    // console.log("%%%%", getQuestionsAndAnswers);
+    // await delay(500);
+    // for (const question of getQuestionsAndAnswers.questionsForOlder) {
+    //   const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
+    //     question,
+    //     getQuestionsAndAnswers.article_id
+    //   );
+    //   // console.log(
+    //   //   "Younger questions and answers",
+    //   //   addedOlderQuestionAndAnswers
+    //   // );
+    //   await delay(1000);
+    // }
+    // }
+    res.status(200).json({ message: "Added Summaries and questions" });
     // } else {
     //   res.status(200).json({ message: "Articles are up to date" });
     //   // console.log("Articles are up to date");
