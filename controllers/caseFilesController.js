@@ -6,6 +6,7 @@ const {
   getCaseFilesByCountry,
   getLatestCaseFile,
   getAllNewCaseFiles,
+  deleteOldArticles,
 } = require("../queries/caseFiles");
 const deleteOldCaseFiles = require("../helpers/deleteOldCaseFiles");
 const addArticles = require("../helpers/addArticles");
@@ -27,9 +28,10 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 case_files.get("/world_news", async (req, res) => {
   try {
     // console.log(translateText("Hello World!", "es"));
-    await deleteOldCaseFiles();
-    const checkCaseFiles = await getAllNewCaseFiles();
-    if (!checkCaseFiles[0]) {
+    // await deleteOldCaseFiles();
+    // const checkCaseFiles = await getAllNewCaseFiles();
+    // if (!checkCaseFiles[0]) {
+      await deleteOldArticles();
       const allCountries = await getAllCountries();
       if (!allCountries[0]) {
         // res.status(500).json({ error: "Error fetching countries" });
@@ -37,18 +39,19 @@ case_files.get("/world_news", async (req, res) => {
       }
       const addedArticles = await addArticles(allCountries);
       // res.status(200).json({ message: "Success adding articles!" })
-      console.log(`Success adding ${addedArticles.length} articles!`);
+      console.log(`*****Success adding ${addedArticles.length} articles!*****`);
       if (addedArticles.length === 0) {
         throw new Error(" Error adding articles");
       }
       const summariesArr = await addSummaries(addedArticles);
-      //For younger questions
+      
       for (const summary of summariesArr) {
         const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
           summary
         );
         console.log("%%%%", getQuestionsAndAnswers);
         // await delay(500);
+        //For younger questions
         for (const question of getQuestionsAndAnswers.questionsForYounger) {
           const addedYoungerQuestionAndAnswers =
             await addYoungerQuestionAndAnswers(
@@ -61,6 +64,7 @@ case_files.get("/world_news", async (req, res) => {
           // );
           await delay(1000);
         }
+        //For older questions
         for (const question of getQuestionsAndAnswers.questionsForOlder) {
           const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
             question,
@@ -93,10 +97,10 @@ case_files.get("/world_news", async (req, res) => {
         // }
       // }
       res.status(200).json({ message: "Added Summaries and questions" });
-    } else {
-      res.status(200).json({ message: "Articles are up to date" });
-      // console.log("Articles are up to date");
-    }
+    // } else {
+    //   res.status(200).json({ message: "Articles are up to date" });
+    //   // console.log("Articles are up to date");
+    // }
   } catch (error) {
     // console.error("Error fetching news:", error);
     res.status(500).json({ error: "Internal server error" });
