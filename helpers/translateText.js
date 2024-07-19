@@ -41,7 +41,7 @@ const translate = new Translate();
 async function translateText(text, targetLanguage) {
   try {
     const [translation] = await translate.translate(text, targetLanguage);
-    console.log(`Translation: ${text} => (${targetLanguage}) ${translation}`);
+    // console.log(`Translation: ${text} => (${targetLanguage}) ${translation}`);
     return translation;
   } catch (error) {
     console.error("Error translating text:", error);

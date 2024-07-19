@@ -58,9 +58,9 @@ async function addArticles(allCountries) {
       // Translate content and title if the language is not English
       if (country.language_code !== "en") {
         // if (country.language_code === "en") {
-        let translatedContent = await translateText("Hola", "en");
-        let translatedTitle = await translateText("Como estas", "en");
-        console.log(translatedContent);
+        translatedContent = await translateText(newFile.text, "en");
+        translatedTitle = await translateText(newFile.title, "en");
+        // console.log('',translatedContent);
         // translatedContent = await translateText(newFile.text, "es");
         // translatedTitle = await translateText(newFile.title, "es");
       }
@@ -75,13 +75,13 @@ async function addArticles(allCountries) {
         publish_date: newFile.publish_date,
         photo_url: newFile.image,
       });
-      // console.log("Added file", addedCaseFile);
+      console.log("Added file with translation", addedCaseFile);
       addedArticles.push({
         articleContent: addedCaseFile.article_content,
         articleId: addedCaseFile.article_id,
       });
     }
-    delay(1000);
+    await delay(1000);
   }
   return addedArticles;
 }
