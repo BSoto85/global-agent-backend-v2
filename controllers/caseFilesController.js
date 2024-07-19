@@ -61,14 +61,6 @@ case_files.get("/world_news", async (req, res) => {
           // );
           await delay(1000);
         }
-      }
-      //For older questions
-      for (const summary of summariesArr) {
-        const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
-          summary
-        );
-        // console.log("%%%%", getQuestionsAndAnswers);
-        // await delay(500);
         for (const question of getQuestionsAndAnswers.questionsForOlder) {
           const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
             question,
@@ -81,6 +73,25 @@ case_files.get("/world_news", async (req, res) => {
           await delay(1000);
         }
       }
+      //For older questions
+      // for (const summary of summariesArr) {
+      //   const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
+      //     summary
+      //   );
+        // console.log("%%%%", getQuestionsAndAnswers);
+        // await delay(500);
+        // for (const question of getQuestionsAndAnswers.questionsForOlder) {
+        //   const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
+        //     question,
+        //     getQuestionsAndAnswers.article_id
+        //   );
+        //   // console.log(
+        //   //   "Younger questions and answers",
+        //   //   addedOlderQuestionAndAnswers
+        //   // );
+        //   await delay(1000);
+        // }
+      // }
       res.status(200).json({ message: "Added Summaries and questions" });
     } else {
       res.status(200).json({ message: "Articles are up to date" });
