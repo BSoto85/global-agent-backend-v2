@@ -83,6 +83,7 @@ async function addArticles(allCountries) {
     }
     await delay(1000);
   }
+  console.log("Complete add articles", addedArticles);
   return addedArticles;
 }
 module.exports = addArticles;
