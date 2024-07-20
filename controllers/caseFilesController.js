@@ -100,8 +100,8 @@ case_files.get("/world_news", async (req, res) => {
     //   // console.log("Articles are up to date");
     // }
   } catch (error) {
-    // console.error("Error fetching news:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error fetching news:", error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
