@@ -33,6 +33,7 @@ case_files.get("/world_news", async (req, res) => {
     // if (!checkCaseFiles[0]) {
     await deleteOldArticles();
     const allCountries = await getAllCountries();
+    console.log("All countries in GET", allCountries);
     if (!allCountries[0]) {
       // res.status(500).json({ error: "Error fetching countries" });
       throw new Error(" Error fetching countries");
