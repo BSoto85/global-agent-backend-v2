@@ -36,6 +36,8 @@ const job = new CronJob(
   "America/New_York" // timeZone
 );
 
+job.start();
+
 // CONFIGURATION
 const app = express();
 // const corsOptions = {
