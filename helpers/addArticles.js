@@ -41,7 +41,7 @@ async function addArticles(allCountries) {
       // throw new Error("Failed to fetch news");
     }
     const data = await response.json();
-    // console.log("Data", data);
+    console.log("Data", data);
     const allArticles = data.top_news[0].news;
     const middle = Math.floor(allArticles.length / 2);
     const threeArticles = [
