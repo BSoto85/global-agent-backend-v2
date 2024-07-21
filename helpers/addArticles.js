@@ -10,7 +10,10 @@ function getFormattedDate() {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
-  const day = currentDate.getDate();
+  const day =
+    currentDate.getDate() === 1
+      ? currentDate.getDate()
+      : currentDate.getDate() - 1;
 
   // Function to ensure two digits for month and day
   const formatTwoDigits = (num) => (num < 10 ? "0" + num : num);
@@ -21,13 +24,13 @@ function getFormattedDate() {
   return formattedDate;
 }
 
-const currentDate = getFormattedDate();
+const yesterdaysDate = getFormattedDate();
 
 async function addArticles(allCountries) {
   let addedArticles = [];
 
   for (let country of allCountries) {
-    const url = `${URL}?source-country=${country.country_code}&language=${country.language_code}&date=${currentDate}`;
+    const url = `${URL}?source-country=${country.country_code}&language=${country.language_code}&date=${yesterdaysDate}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
