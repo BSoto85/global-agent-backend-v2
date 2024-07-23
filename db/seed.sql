@@ -34,14 +34,14 @@ VALUES
 
 INSERT INTO countries(name, flag, country_code, language_code)
 VALUES
+    ('France', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589524/GlobalAgent-Franceflag_j3tgqr.webp', 'fr', 'fr'),
+    ('Mexico', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589677/GlobalAgent-Mexicoflag_pat31d.gif', 'mx', 'es'),
+    ('Germany', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'de', 'de');
     -- ('Portugal', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945536/download_2_wosmqd.png', 'pt', 'pt'),
     -- ('Spain', 'https://res.cloudinary.com/dgifdj6nx/image/upload/v1721233315/GlobalAgent-flagSpainGif_adh0ik.gif', 'es', 'es'),
     -- ('Dominican Republic', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945529/download_1_ey5dxy.png', 'do', 'es'),
     -- ('China', 'https://res.cloudinary.com/dhexjuuzd/image/upload/v1719945542/download_3_xdtw9a.png', 'cn', 'zh'),
     -- ('Canada', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721233336/GlobalAgent-flagCanadaGif_f9bbfq.gif', 'ca', 'en'),
-    ('France', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'fr', 'fr'),
-    ('Mexico', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'mx', 'es'),
-    ('Germany', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'de', 'de');
     -- ('Australia', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721499418/GlobalAgent-AustraliaFlag_b1gw8n.webp', 'au', 'en');
     -- ('Brazil', '🇧🇷', 'br', 'pt');
 
