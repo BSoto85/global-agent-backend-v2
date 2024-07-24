@@ -14,33 +14,6 @@ const statsController = require("./controllers/statsController");
 const caseFilesController = require("./controllers/caseFilesController");
 const profileController = require("./controllers/profileController");
 
-const getWorldNews = async () => {
-  try {
-    const response = await fetch(
-      `${digitalOceanUrl}/api/case_files/world_news`
-    );
-    console.log(
-      "Request made to the endpoint, response status:",
-      response.status
-    );
-  } catch (error) {
-    console.error("Error making request to the endpoint:", error);
-  }
-};
-
-const job = new CronJob(
-  "53 12 * * * ", // cronTime
-  getWorldNews, // onTick
-  null, // onComplete
-  true, // start
-  "America/New_York", // timeZone
-  function () {
-    console.log(new Date());
-  }
-);
-
-job.start();
-
 // CONFIGURATION
 const app = express();
 // const corsOptions = {
@@ -63,6 +36,33 @@ app.use("/api/older_questions", questionsOlderController);
 app.use("/api/stats", statsController);
 app.use("/api/case_files", caseFilesController);
 app.use("/api/profile", profileController);
+
+const getWorldNews = async () => {
+  try {
+    const response = await fetch(
+      `${digitalOceanUrl}/api/case_files/world_news`
+    );
+    console.log(
+      "Request made to the endpoint, response status:",
+      response.status
+    );
+  } catch (error) {
+    console.error("Error making request to the endpoint:", error);
+  }
+};
+
+const job = new CronJob(
+  "54 12 * * * ", // cronTime
+  getWorldNews, // onTick
+  null, // onComplete
+  true, // start
+  "America/New_York", // timeZone
+  function () {
+    console.log(new Date());
+  }
+);
+
+job.start();
 
 // ROUTES
 app.get("/", (_req, res) => {
