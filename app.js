@@ -28,13 +28,16 @@ const getWorldNews = async () => {
   }
 };
 
-// const job = new CronJob(
-//   "0 7 * * * *", // cronTime
-//   getWorldNews, // onTick
-//   null, // onComplete
-//   true, // start
-//   "America/New_York" // timeZone
-// );
+const job = new CronJob(
+  "38 12 * * * *", // cronTime
+  getWorldNews, // onTick
+  null, // onComplete
+  true, // start
+  "America/New_York", // timeZone
+  function () {
+    console.log(new Date());
+  }
+);
 
 // job.start();
 
