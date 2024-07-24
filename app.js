@@ -29,7 +29,7 @@ const getWorldNews = async () => {
 };
 
 const job = new CronJob(
-  "41 12 * * * *", // cronTime
+  "48 12 * * * *", // cronTime
   getWorldNews, // onTick
   null, // onComplete
   true, // start
@@ -39,7 +39,7 @@ const job = new CronJob(
   }
 );
 
-// job.start();
+job.start();
 
 // CONFIGURATION
 const app = express();
