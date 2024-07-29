@@ -47,12 +47,11 @@ const updateUserStats = async (stats) => {
         stats.questions_correct,
         stats.questions_wrong,
         stats.user_id,
-        stats.id,
       ]
     );
     return updatedUserStats;
   } catch (error) {
-    return error;
+    throw new Error(`Failed to update user stats: ${error.message}`);
   }
 };
 
