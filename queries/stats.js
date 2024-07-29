@@ -40,19 +40,18 @@ const createUserStats = async (user_id) => {
 const updateUserStats = async (stats) => {
   try {
     const updatedUserStats = await db.one(
-      `UPDATE stats SET xp=$1, games_played=$2, questions_correct=$3, questions_wrong=$4, id=$5 WHERE user_id=$6 RETURNING *`,
+      `UPDATE stats SET xp=$1, games_played=$2, questions_correct=$3, questions_wrong=$4 WHERE user_id=$5 RETURNING *`,
       [
         stats.xp,
         stats.games_played,
         stats.questions_correct,
         stats.questions_wrong,
-        stats.id,
         stats.user_id,
       ]
     );
     return updatedUserStats;
   } catch (error) {
-    return error;
+    throw new Error(`Failed to update user stats: ${error.message}`);
   }
 };
 
