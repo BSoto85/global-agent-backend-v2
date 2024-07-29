@@ -33,6 +33,7 @@ case_files.get("/world_news", async (req, res) => {
     // if (!checkCaseFiles[0]) {
     await deleteOldArticles();
     const allCountries = await getAllCountries();
+    console.log("All countries in GET", allCountries);
     if (!allCountries[0]) {
       // res.status(500).json({ error: "Error fetching countries" });
       throw new Error(" Error fetching countries");
@@ -75,33 +76,14 @@ case_files.get("/world_news", async (req, res) => {
         await delay(500);
       }
     }
-    //For older questions
-    // for (const summary of summariesArr) {
-    //   const getQuestionsAndAnswers = await generateQuestionsAndAnswers(
-    //     summary
-    //   );
-    // console.log("%%%%", getQuestionsAndAnswers);
-    // await delay(500);
-    // for (const question of getQuestionsAndAnswers.questionsForOlder) {
-    //   const addedOlderQuestionAndAnswers = await addOlderQuestionAndAnswers(
-    //     question,
-    //     getQuestionsAndAnswers.article_id
-    //   );
-    //   // console.log(
-    //   //   "Younger questions and answers",
-    //   //   addedOlderQuestionAndAnswers
-    //   // );
-    //   await delay(1000);
-    // }
-    // }
     res.status(200).json({ message: "Added Summaries and questions" });
     // } else {
     //   res.status(200).json({ message: "Articles are up to date" });
     //   // console.log("Articles are up to date");
     // }
   } catch (error) {
-    // console.error("Error fetching news:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error fetching news:", error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 

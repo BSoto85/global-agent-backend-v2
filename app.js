@@ -1,29 +1,26 @@
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
+require("dotenv").config();
 
+const digitalOceanUrl = process.env.DIGITAL_OCEAN_URL;
+
+const { CronJob } = require("cron");
 const authController = require("./controllers/authController");
 const countriesController = require("./controllers/countriesController");
 const youngerQuestionsController = require("./controllers/youngerQuestionsController");
 const questionsOlderController = require("./controllers/questionsOlderController");
 const statsController = require("./controllers/statsController");
 const caseFilesController = require("./controllers/caseFilesController");
-// const youngerQuestionsController = require("./controllers/aiController");
 const profileController = require("./controllers/profileController");
 
 // CONFIGURATION
 const app = express();
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   credentials: true,
+// };
 app.use(cors());
-
-// MIDDLEWARE
-// app.use(cors({
-//   origin: "http://localhost:3000"
-//   // origin: ["https://main--fridgem8.netlify.app", "http://localhost:3000"]
-// }));
 
 app.use((req, _res, next) => {
   console.log("Origin Requested:", req.headers.origin);
@@ -38,8 +35,34 @@ app.use("/api/younger_questions", youngerQuestionsController);
 app.use("/api/older_questions", questionsOlderController);
 app.use("/api/stats", statsController);
 app.use("/api/case_files", caseFilesController);
-// app.use("/api/younger", aiController);
 app.use("/api/profile", profileController);
+
+const getWorldNews = async () => {
+  try {
+    const response = await fetch(
+      `${digitalOceanUrl}/api/case_files/world_news`
+    );
+    console.log(
+      "Request made to the endpoint, response status:",
+      response.status
+    );
+  } catch (error) {
+    console.error("Error making request to the endpoint:", error);
+  }
+};
+
+const job = new CronJob(
+  "0 7 * * * ", // cronTime
+  getWorldNews, // onTick
+  null, // onComplete
+  true, // start
+  "America/New_York", // timeZone
+  function () {
+    console.log(new Date());
+  }
+);
+
+job.start();
 
 // ROUTES
 app.get("/", (_req, res) => {
