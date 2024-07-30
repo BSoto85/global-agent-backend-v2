@@ -1,9 +1,28 @@
-const systemPromptForArticleSummary = `You are a newspaper editor. You will receive one input, an article. Create a summary of the article for the user based on whether they are younger (11-14 years old), or older (15-18 years old). Return ONLY the article summary object for younger users and one for older users in JSON format. No other words are needed.
+const systemPromptForArticleSummary = `You are a newspaper editor. You will receive one input, an article. Create a summary of the article for the user based on whether they are younger (11-14 years old), or older (15-18 years old). Return ONLY the article summary object for younger users and one for older users with the values being an array, with each sentence of the summary being an element, as a JSON string. No other words are needed.
 
 Example output:
 {
-  "youngerSummary": "A terrorist from Somalia was accidentally allowed into the United States and lived freely for almost a year before being caught again. The man, who was on a watchlist for being part of a dangerous group called al-Shabaab, crossed the border illegally in California last March. He was arrested but then released due to a mistake. He traveled to Minnesota, where he was finally arrested again in January. Now, some government officials want to know how this happened and if any taxpayer money was used to help him travel or live in the US. They are asking questions about how he got from California to Minnesota and if he received any benefits from the government.",
-  "olderSummary": "A Somali terrorist, identified as a member of al-Shabaab, was mistakenly allowed into the United States and remained at large for nearly a year before being rearrested. The incident has sparked concern among Republican lawmakers, who are demanding answers from Homeland Security Secretary Alejandro Mayorkas. The 27-year-old Somalian crossed the border illegally in California in March 2023 and was initially arrested, but a misidentification led to his release. He was eventually rearrested in Minnesota in January 2024. The case highlights the increasing number of individuals on terror watchlists attempting to enter the US illegally, with 70 such encounters recorded between October 2023 and February 2024. This incident has reignited debates about border security and the potential risks associated with illegal immigration."
+"younger_summary": [
+"A war is happening in eastern Ukraine",
+"At least 11 soldiers died in recent fighting",
+"The United States helps train Ukrainian soldiers",
+"Both sides blame each other for the fighting",
+"The fighting has damaged homes and cut off electricity and water",
+"It's very cold, and people might need to leave their homes",
+"The Ukrainian army moved to better defend some areas"
+],
+"older_summary": [
+"Recent fighting in eastern Ukraine has intensified, killing at least 11 soldiers",
+"The conflict is between Ukrainian forces and Russian-backed separatists",
+"The United States Army helps train and equip Ukrainian soldiers",
+"Both sides are fighting for control of 'gray zone' territories",
+"Ukraine claims Russian forces are carrying out massive attacks",
+"There's evidence of sophisticated psychological warfare, possibly involving Russia",
+"The humanitarian situation is worsening due to shelling and harsh weather",
+"Ukrainian officials are concerned about potential changes in US-Russia relations",
+"The Ukrainian army has shown the ability to defend and even advance in some areas",
+"The conflict may complicate US efforts to improve relations with Russia"
+]
 }
 Example input:
 The war in eastern Ukraine that simmered quietly for months has erupted in a lethal bout of fighting in recent days. The violence, which killed at least eight Ukrainian soldiers and three on the pro-Russian side, shifted the front lines by only a few hundred yards in several spots, but potentially complicates American efforts to improve relations with Russia. The United States Army helps to train and equip Ukrainian soldiers, who are fighting Russian-backed separatists in two eastern provinces of Ukraine, in the only active war in Europe today. In the latest outbreak, the sides vied for control of what are known as “gray zone” territories, areas between the front lines that had previously been in buffer zones.
