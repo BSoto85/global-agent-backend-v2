@@ -6,11 +6,11 @@ const {
 } = require("../helpers/aiData");
 const { updateYoungerSummary, updateOlderSummary } = require("../queries/ai");
 
-const extractSummary = (str, key) => {
-  const regex = new RegExp(`"${key}":\\s*"([^"]*)"`, "s");
-  const match = str.match(regex);
-  return match ? match[1] : null;
-};
+// const extractSummary = (str, key) => {
+//   const regex = new RegExp(`"${key}":\\s*"([^"]*)"`, "s");
+//   const match = str.match(regex);
+//   return match ? match[1] : null;
+// };
 
 const getSummaries = async (content, article_id) => {
   const articleSummary = await anthropic.messages.create({
@@ -31,25 +31,22 @@ const getSummaries = async (content, article_id) => {
     ],
   });
 
-  const parsedYoung = extractSummary(
-    articleSummary.content[0].text,
-    "youngerSummary"
-  );
-  const parsedOld = extractSummary(
-    articleSummary.content[0].text,
-    "olderSummary"
-  );
+  const youngerSummary = articleSummary.content[0].text;
+  const olderSummary = articleSummary.content[0].text;
   // console.log("Article summary", articleSummary);
   // const parsedYoung = JSON.parse(articleSummary.content[0].text).youngerSummary;
   // const parsedOld = JSON.parse(articleSummary.content[0].text).olderSummary;
   // console.log(JSON.parse(articleSummary.content[0].text), "---------");
-  // console.log("parsed young", parsedYoung);
-  // console.log("parsed old", parsedOld);
+  console.log("parsed young", youngerSummary);
+  console.log("parsed old", olderSummary);
   const updatedYoungerSummary = await updateYoungerSummary(
-    parsedYoung,
+    youngerSummary,
     article_id
   );
-  const updatedOlderSummary = await updateOlderSummary(parsedOld, article_id);
+  const updatedOlderSummary = await updateOlderSummary(
+    olderSummary,
+    article_id
+  );
   // console.log("Younger", updatedYoungerSummary);
   // console.log("Older", updatedOlderSummary);
 
