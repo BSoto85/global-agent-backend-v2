@@ -1,11 +1,8 @@
 const express = require("express");
 const profile = express.Router();
-const {
-  updateProfile, 
-  getProfile,
-} = require("../queries/profile");
+const { updateProfile, getProfile } = require("../queries/profile");
 
-// http://localhost:3003/api/profile/skZmowShBkPAbWHUYx6It5XdXg73
+// https://global-agent-jwxj4.ondigitalocean.app/api/profile/skZmowShBkPAbWHUYx6It5XdXg73
 profile.get("/:uid", async (req, res) => {
   const { uid } = req.params;
   const profile = await getProfile(uid);
@@ -16,7 +13,7 @@ profile.get("/:uid", async (req, res) => {
   }
 });
 
-// http://localhost:3003/api/profile/1
+// https://global-agent-jwxj4.ondigitalocean.app/api/profile/1
 profile.put("/:user_id", async (req, res) => {
   const { user_id } = req.params;
   const updatedProfile = await updateProfile({

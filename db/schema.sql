@@ -4,7 +4,7 @@ CREATE DATABASE global_agent;
 
 \c global_agent;
 
--- Add comments explaing what all columns are about
+-- User table takes in input from register, google login, or email login. A uid is assigned for firebase.
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     uid VARCHAR(255),
@@ -16,6 +16,7 @@ CREATE TABLE users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Each user is assigned a set of stats. They start at 0 for each stat until they play the game and the stats update.
 CREATE TABLE stats (
     id SERIAL PRIMARY KEY,
     xp INTEGER DEFAULT 0,
@@ -25,14 +26,7 @@ CREATE TABLE stats (
     user_id INTEGER REFERENCES users(id)
 );
 
--- CREATE TABLE badges (
---     id SERIAL PRIMARY KEY,
---     name VARCHAR(100),
---     image TEXT NOT NULL,
---     description VARCHAR(200),
---     xp_required INTEGER NOT NULL
--- );
-
+-- Hard-coded countries used to retrieve data from the news endpoint. Flag is a url for each country's flag. The country code and langause code pertain to the shorthand used for each country and their language respectively. These are needed for the news endpoint
 CREATE TABLE countries (
     id SERIAL PRIMARY KEY,
     flag TEXT NOT NULL,
@@ -41,19 +35,8 @@ CREATE TABLE countries (
     language_code VARCHAR(2)
 );
 
--- CREATE TABLE user_badges (
---     id SERIAL PRIMARY KEY,
---     badge_id INTEGER NOT NULL REFERENCES badges(id),
---     user_id INTEGER NOT NULL REFERENCES users(id)
--- );
-
--- CREATE TABLE visited_countries (
---    id SERIAL PRIMARY KEY,
---    countries_id INTEGER NOT NULL REFERENCES countries(id),
---    user_id INTEGER NOT NULL REFERENCES users(id)
--- );
-
--- Change names of older and younger to add demographic at the end
+-- **Change names of older and younger to add demographic at the end
+-- Case files retrieved from the news endpoint are saved to this table. Summary_young (for our younger demographic) and summary_old (for our older demographic) are then updated after the article gets passed into claude and gives back a summary 
 CREATE TABLE case_files (
     id SERIAL PRIMARY KEY,
     article_id INTEGER UNIQUE,
@@ -66,14 +49,8 @@ CREATE TABLE case_files (
     photo_url TEXT
 );
 
--- CREATE TABLE photos (
---     id SERIAL PRIMARY KEY,
---     photo_url TEXT,
---     article_id INTEGER,
---     caption TEXT,
---     case_files_id INTEGER REFERENCES case_files(id) ON DELETE CASCADE
--- );
-
+-- **Possibly change questions tables to be one table with a questions type added
+-- Case file summaries are fed to claude and questions for the younger demographic are generated and saved to this table. Each key starts with a y to differentiate from the same keys in the older demographic questions table.
 CREATE TABLE questions_younger (
     id SERIAL PRIMARY KEY,
     y_question VARCHAR(150),
@@ -84,6 +61,7 @@ CREATE TABLE questions_younger (
     y_case_files_article_id INTEGER REFERENCES case_files(article_id) ON DELETE CASCADE
 );
 
+-- Case file summaries are fed to claude and questions for the older demographic are generated and saved to this table. Each key starts with an o to differentiate from the same keys in the younger demographic questions table.
 CREATE TABLE questions_older (
     id SERIAL PRIMARY KEY,
     o_question VARCHAR(150),

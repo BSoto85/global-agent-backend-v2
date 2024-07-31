@@ -1,11 +1,8 @@
 const Anthropic = require("@anthropic-ai/sdk");
 const anthropic = new Anthropic();
-const {
-  systemPromptForArticleQuestions,
-  hardCodedArticleSummary,
-} = require("./aiData");
+const { systemPromptForArticleQuestions } = require("./aiData");
 
-//http://localhost:3003/api/ai/questions
+//https://global-agent-jwxj4.ondigitalocean.app/api/ai/questions
 const generateQuestionsAndAnswers = async (summary) => {
   const articleQuestionsAndAnswers = await anthropic.messages.create({
     model: "claude-3-5-sonnet-20240620",
@@ -24,13 +21,7 @@ const generateQuestionsAndAnswers = async (summary) => {
       },
     ],
   });
-  // }
-  // console.log(
-  //   "*******",
-  //   JSON.parse(articleQuestionsAndAnswers.content[0].text)
-  // );
   const parsed = JSON.parse(articleQuestionsAndAnswers.content[0].text);
-  // console.log("^^^^^^", { ...parsed, article_id: summary.article_id });
   return { ...parsed, article_id: summary.article_id };
 };
 

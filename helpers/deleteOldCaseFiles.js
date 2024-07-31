@@ -12,14 +12,10 @@ const checkDate = (article_publish_date) => {
 };
 
 async function deleteOldCaseFiles() {
-  console.log("Delete case files function running");
   const latestFile = await getLatestCaseFile();
-  console.log("Latest file", latestFile);
   const daysSinceLastArticlePost = checkDate(latestFile.publish_date);
-  console.log("Days since last post", daysSinceLastArticlePost);
   if (daysSinceLastArticlePost > 1) {
-    const deletedArticles = await deleteOldArticles();
-    console.log("Deleted Articles", deletedArticles);
+    await deleteOldArticles();
   }
 }
 
