@@ -6,7 +6,7 @@ const {
   getLeaderboard,
 } = require("../queries/stats");
 
-// http://localhost:3003/api/stats/leaderboard
+// https://global-agent-jwxj4.ondigitalocean.app/api/stats/leaderboard
 stats.get("/leaderboard", async (req, res) => {
   const leaderboard = await getLeaderboard();
   if (leaderboard[0]) {
@@ -16,7 +16,7 @@ stats.get("/leaderboard", async (req, res) => {
   }
 });
 
-// http://localhost:3003/api/stats/1
+// https://global-agent-jwxj4.ondigitalocean.app/api/stats/1
 stats.get("/:user_id", async (req, res) => {
   const { user_id } = req.params;
   const userStats = await getStatsByUserId(user_id);
@@ -27,7 +27,7 @@ stats.get("/:user_id", async (req, res) => {
   }
 });
 
-// http://localhost:3003/api/stats/1
+// https://global-agent-jwxj4.ondigitalocean.app/api/stats/1
 stats.put("/:user_id", async (req, res) => {
   const { user_id } = req.params;
   const { xp, games_played, questions_correct, questions_wrong } = req.body;
@@ -36,7 +36,6 @@ stats.put("/:user_id", async (req, res) => {
     if (!userStats) {
       return res.status(404).json({ error: "User stats not found" });
     }
-
     const updatedUserStats = await updateUserStats({
       user_id,
       xp: userStats.xp + xp,

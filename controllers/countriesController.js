@@ -3,10 +3,9 @@ const countries = express.Router();
 
 const { getAllCountries } = require("../queries/countries");
 
-//INDEX http://localhost:3003/api/countries
+//INDEX https://global-agent-jwxj4.ondigitalocean.app/api/countries
 countries.get("/", async (req, res) => {
   const allCountries = await getAllCountries();
-
   if (allCountries[0]) {
     res.status(200).json(allCountries);
   } else {

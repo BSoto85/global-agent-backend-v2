@@ -1,6 +1,6 @@
 const db = require("../db/dbConfig");
 
-// CREATE
+// CREATE- add case file to case files table
 const addCaseFile = async (file) => {
   try {
     const newCaseFile = await db.one(
@@ -20,6 +20,7 @@ const addCaseFile = async (file) => {
   }
 };
 
+// Get all case files by country
 const getCaseFilesByCountry = async (countries_id) => {
   try {
     const allCaseFilesByCountry = await db.any(
@@ -32,7 +33,7 @@ const getCaseFilesByCountry = async (countries_id) => {
   }
 };
 
-//GET case files ater posting to case files table
+//GET all case files ater posting to case files table
 const getAllNewCaseFiles = async () => {
   try {
     const allCaseFiles = await db.any("SELECT * FROM case_files");
@@ -42,7 +43,7 @@ const getAllNewCaseFiles = async () => {
   }
 };
 
-//GET publish date for latest article in the case_files table
+//GET publish date for latest article in the case_files table  ****Do we need?
 const getLatestCaseFile = async () => {
   try {
     const latestCaseFile = await db.one(
@@ -54,7 +55,7 @@ const getLatestCaseFile = async () => {
   }
 };
 
-// DELETE all articles that are older than 1 day
+// DELETE all articles that are older than 1 day   ****Do we need?
 const deleteOldArticles = async () => {
   try {
     const deletedArticles = await db.any("DELETE FROM case_files");
