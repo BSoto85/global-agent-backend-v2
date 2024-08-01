@@ -1,5 +1,6 @@
 const db = require("../db/dbConfig");
 
+// Get all users and their stats from users table joining stats table
 const getLeaderboard = async () => {
   try {
     const leaderboard = await db.any(
@@ -11,6 +12,7 @@ const getLeaderboard = async () => {
   }
 };
 
+// Get stats for a specific user
 const getStatsByUserId = async (user_id) => {
   try {
     const statsByUserId = await db.one(
@@ -23,7 +25,7 @@ const getStatsByUserId = async (user_id) => {
   }
 };
 
-// CREATE
+// CREATE - create a blank user stats for a user when a new user is added
 const createUserStats = async (user_id) => {
   try {
     const newUserStats = await db.one(
@@ -36,7 +38,7 @@ const createUserStats = async (user_id) => {
   }
 };
 
-// UPDATE
+// UPDATE - update user stats after a game is played
 const updateUserStats = async (stats) => {
   try {
     const updatedUserStats = await db.one(

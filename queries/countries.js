@@ -1,6 +1,6 @@
 const db = require("../db/dbConfig");
 
-// INDEX
+// INDEX- get all countries from countries table
 const getAllCountries = async () => {
   try {
     const allCountries = await db.any(`SELECT * FROM countries`);

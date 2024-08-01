@@ -38,9 +38,9 @@ const getAllSummaries = async () => {
   }
 };
 
+//Add questions to younger questions table
 const addYoungerQuestionAndAnswers = async (youngerQuestion, article_id) => {
   try {
-    // console.log("**Query**", youngerQuestion);
     const youngerQuestionAndAnswers = await db.one(
       "INSERT INTO questions_younger(y_question, y_correct_answer, y_incorrect_answer1, y_incorrect_answer2, y_incorrect_answer3, y_case_files_article_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [
@@ -52,13 +52,13 @@ const addYoungerQuestionAndAnswers = async (youngerQuestion, article_id) => {
         article_id,
       ]
     );
-    // console.log("-----------", youngerQuestionAndAnswers);
     return youngerQuestionAndAnswers;
   } catch (error) {
     return error;
   }
 };
 
+//Add questions to older questions table
 const addOlderQuestionAndAnswers = async (olderQuestion, article_id) => {
   try {
     const olderQuestionAndAnswers = await db.one(
@@ -78,6 +78,7 @@ const addOlderQuestionAndAnswers = async (olderQuestion, article_id) => {
   }
 };
 
+// Get all younger questions and answers from specific case file
 const getAllYoungerQuestionsAndAnswers = async (case_files_article_id) => {
   try {
     const allYoungerQuestions = await db.any(
@@ -90,6 +91,7 @@ const getAllYoungerQuestionsAndAnswers = async (case_files_article_id) => {
   }
 };
 
+// Get all older questions and answers from specific case file
 const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
   try {
     const allOlderQuestionsAndAnswers = await db.any(
@@ -102,6 +104,7 @@ const getAllOlderQuestionsAndAnswers = async (case_files_article_id) => {
   }
 };
 
+// Get all younger questions from all case files
 const getAllYoungerQuestions = async () => {
   try {
     const allQuestions = await db.any("SELECT * from questions_younger");
@@ -111,6 +114,7 @@ const getAllYoungerQuestions = async () => {
   }
 };
 
+// Get all older questions from all case files
 const getAllOlderQuestions = async () => {
   try {
     const allQuestions = await db.any("SELECT * from questions_older");
@@ -121,7 +125,6 @@ const getAllOlderQuestions = async () => {
 };
 
 module.exports = {
-  // addQuestionsAndAnswers,
   updateYoungerSummary,
   updateOlderSummary,
   getAllYoungerQuestionsAndAnswers,

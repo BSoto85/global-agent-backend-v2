@@ -16,10 +16,7 @@ const profileController = require("./controllers/profileController");
 
 // CONFIGURATION
 const app = express();
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   credentials: true,
-// };
+
 app.use(cors());
 
 app.use((req, _res, next) => {
@@ -37,6 +34,7 @@ app.use("/api/stats", statsController);
 app.use("/api/case_files", caseFilesController);
 app.use("/api/profile", profileController);
 
+// Function to call world news endpoint and start case files controller GET
 const getWorldNews = async () => {
   try {
     const response = await fetch(
@@ -51,6 +49,7 @@ const getWorldNews = async () => {
   }
 };
 
+// Set get world news function to be invoked every day at 7am
 const job = new CronJob(
   "0 7 * * * ", // cronTime
   getWorldNews, // onTick
