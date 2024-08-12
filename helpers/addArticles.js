@@ -10,10 +10,7 @@ function getFormattedDate() {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
-  const day =
-    currentDate.getDay() === 1
-      ? currentDate.getDay()
-      : currentDate.getDay() - 1;
+  const day = currentDate.getDate();
 
   // Function to ensure two digits for month and day
   const formatTwoDigits = (num) => (num < 10 ? "0" + num : num);
@@ -38,6 +35,7 @@ async function addArticles(allCountries) {
       },
     });
     const data = await response.json();
+    console.log("Data", data);
     const allArticles = data.top_news[0].news;
     const middle = Math.floor(allArticles.length / 2);
     const threeArticles = [
