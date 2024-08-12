@@ -32,7 +32,8 @@ CREATE TABLE countries (
     flag TEXT NOT NULL,
     country_code VARCHAR(2),
     name VARCHAR(30),
-    language_code VARCHAR(2)
+    language_code VARCHAR(2),
+    silhouette TEXT NOT NULL
 );
 
 -- **Change names of older and younger to add demographic at the end

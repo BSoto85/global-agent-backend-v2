@@ -1,4 +1,4 @@
--- you do not need to seed users
+   -- you do not need to seed users
 -- you should run 'npm run db:init' to initialize the database
 -- start your front and backends
 -- instead now you should create users with firebase that will register also to your backend
@@ -24,10 +24,10 @@ VALUES
    (1025, 13, 41, 11, 4),
    (2375, 19, 76, 0, 5);
 
-INSERT INTO countries(name, flag, country_code, language_code)
+INSERT INTO countries(name, flag, country_code, language_code, silhouette)
 VALUES
-    ('France', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589524/GlobalAgent-Franceflag_j3tgqr.webp', 'fr', 'fr'),
-    ('Mexico', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589677/GlobalAgent-Mexicoflag_pat31d.gif', 'mx', 'es'),
-    ('Germany', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'de', 'de');
+    ('France', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589524/GlobalAgent-Franceflag_j3tgqr.webp', 'fr', 'fr', 'https://res.cloudinary.com/dgifdj6nx/image/upload/v1722800312/GlobalAgent-Tile-FranceNB_1_gjgm6e.png'),
+    ('Mexico', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721589677/GlobalAgent-Mexicoflag_pat31d.gif', 'mx', 'es', 'https://res.cloudinary.com/dgifdj6nx/image/upload/v1722611809/GlobalAgent-Tile-MexicoNB_qtzvgs.webp'),
+    ('Germany', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721419276/GlobalAgent-flag_wkgicw.gif', 'de', 'de', 'https://res.cloudinary.com/dgifdj6nx/image/upload/v1722611885/GlobalAgent-Tile-Germany_1_gazhk1.png');
     -- ('Canada', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721233336/GlobalAgent-flagCanadaGif_f9bbfq.gif', 'ca', 'en'),
     -- ('Australia', 'https://res.cloudinary.com/dgifdj6nx/image/upload/c_scale,h_139,w_200/v1721499418/GlobalAgent-AustraliaFlag_b1gw8n.webp', 'au', 'en');
