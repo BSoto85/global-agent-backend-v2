@@ -22,7 +22,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // https://global-agent-jwxj4.ondigitalocean.app/api/case_files/world_news
 case_files.get("/world_news", async (req, res) => {
   try {
-    await deleteOldArticles();
+    // await deleteOldArticles();
     const allCountries = await getAllCountries();
     console.log("All countries in GET", allCountries);
     if (!allCountries[0]) {

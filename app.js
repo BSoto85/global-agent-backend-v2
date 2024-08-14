@@ -50,18 +50,18 @@ const getWorldNews = async () => {
 };
 
 // Set get world news function to be invoked every day at 7am
-// const job = new CronJob(
-//   "0 7 * * * ", // cronTime
-//   getWorldNews, // onTick
-//   null, // onComplete
-//   true, // start
-//   "America/New_York", // timeZone
-//   function () {
-//     console.log(new Date());
-//   }
-// );
+const job = new CronJob(
+  "0 7 * * * ", // cronTime
+  getWorldNews, // onTick
+  null, // onComplete
+  true, // start
+  "America/New_York", // timeZone
+  function () {
+    console.log(new Date());
+  }
+);
 
-// job.start();
+job.start();
 
 // ROUTES
 app.get("/", (_req, res) => {
